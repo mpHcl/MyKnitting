@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:MyKnitting.ViewModels" 
+             x:Class="MyKnitting.Views.ProjectDetailsPage"
+             xmlns:vm="clr-namespace:MyKnitting.ViewModels"
+             xmlns:m="clr-namespace:MyKnitting.Models"
+             xmlns:local="clr-namespace:MyKnitting.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:ProjectsPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Zapisz"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <StackLayout>
+            <ImageButton Source="{Binding ProjectPhoto}" WidthRequest="500" Margin="0" x:DataType="viewmodels:ProjectDetailsViewModel"></ImageButton>
+            <Grid Margin="20,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition Width="175"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Text="Wzór: " FontSize="30"/>
+                <Label Grid.Column="1"  Text="{Binding Pattern}" FontSize="30"/>
+                <Button Grid.Column="2" Text="Wyświetl"/>
+                <Button Grid.Column="3" Text="Zamień"/>
+            </Grid>
+            <Grid Margin="20,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Text="Druty:" FontSize="30" Grid.Row="0"></Label>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Typ" Grid.Column="0" x:DataType="m:Needle" FontSize="15"/>
+                    <Label Text="Rozmiar" Grid.Column="1" x:DataType="m:Needle" FontSize="15"/>
+                    <Label Text="Długość żyłki" Grid.Column="2" x:DataType="m:Needle" FontSize="15"/>
+                    <Label Text="Posiadane" Grid.Column="3" x:DataType="m:Needle" FontSize="15"/>
+                </Grid>
+                <CollectionView ItemsSource="{Binding Needles}" HeightRequest="80" Grid.Row="2" >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Type}" Grid.Column="0" x:DataType="m:Needle" FontSize="15"/>
+                                <Label Text="{Binding Size}" Grid.Column="1" x:DataType="m:Needle" FontSize="15"/>
+                                <Label Text="{Binding Length}" Grid.Column="2" x:DataType="m:Needle" FontSize="15"/>
+                                <Label Text="{Binding Owned}" Grid.Column="3" x:DataType="m:Needle" FontSize="15"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Text="Edytuj" Grid.Row="3"/>
+            </Grid>
+
+            <Grid Margin="20,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Text="Włóczka:" FontSize="30" Grid.Row="0"></Label>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="90"></ColumnDefinition>
+                        <ColumnDefinition Width="90"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Nazwa" Grid.Column="0" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                    <Label Text="Rozmiar" Grid.Column="1" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                    <Label Text="Ilość" Grid.Column="2" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                    <Label Text="Materiał" Grid.Column="3" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                    <Label Text="Kolor" Grid.Column="4" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                    <Label Text="Podgląd" Grid.Column="5" x:DataType="m:Yarn"   VerticalOptions="Center"/>
+
+                </Grid>
+                <CollectionView ItemsSource="{Binding Yarns}" HeightRequest="80" Grid.Row="2">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition Width="90"></ColumnDefinition>
+                                    <ColumnDefinition Width="90"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}" Grid.Column="0" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                                <Label Text="{Binding Size}" Grid.Column="1" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                                <Label Text="{Binding Amount}" Grid.Column="2" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                                <Label Text="{Binding Material}" Grid.Column="3" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                                <Label Text="{Binding Color}" Grid.Column="4" x:DataType="m:Yarn" FontSize="15" VerticalOptions="Center"/>
+                                <BoxView BackgroundColor="{Binding ColorCode}" Grid.Column="5" x:DataType="m:Yarn" VerticalOptions="CenterAndExpand" HeightRequest="40"  />
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Text="Edytuj" Grid.Row="3"/>
+            </Grid>
+        </StackLayout>
+       </ScrollView>
+</ContentPage>

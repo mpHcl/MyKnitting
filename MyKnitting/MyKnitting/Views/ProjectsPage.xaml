@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyKnitting.Views.ProjectsPage"
+             xmlns:vm="clr-namespace:MyKnitting.ViewModels"
+             xmlns:m="clr-namespace:MyKnitting.Models"
+             xmlns:local="clr-namespace:MyKnitting.ViewModels" 
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:ProjectsPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddProject}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key='imageStyle' TargetType="Image">
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <FlexLayout>
+        <CollectionView x:Name="ProjectListView"
+                ItemsSource="{Binding Projects}"
+                ItemsLayout="VerticalGrid, 2"
+                >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="350"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                        <ImageButton Source="{Binding Photo}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProjectsPageViewModel}}, Path=ViewProjectDetails}" CommandParameter="{Binding .}"/>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </FlexLayout>
+</ContentPage>
