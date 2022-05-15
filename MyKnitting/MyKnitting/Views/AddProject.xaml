@@ -5,8 +5,6 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Nazwa"></Label>
-            <Entry Text="Nazwa"></Entry>
-            <Picker ItemsSource="{Binding }"></Picker>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

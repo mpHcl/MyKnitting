@@ -44,6 +44,7 @@ namespace MyKnitting.Services {
 
         public async Task<bool> DeleteItemAsync(string id) {
             try {
+                
                 var intId = int.Parse(id);
                 collection.Remove(collection.Where(x => x.Id == intId).FirstOrDefault());
                 return await Task.FromResult(true);

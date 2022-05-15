@@ -1,12 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyKnitting.Views.AddNeedle">
+             x:Class="MyKnitting.Views.AddNeedle"
+             Title="Dodaj druty">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="10, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Typ:" FontSize="50" Grid.Column="0"/>
+                    <Entry Text="Typ" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="1" Margin="10, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Rozmiar:" FontSize="50" Grid.Column="0"/>
+                    <Entry Text="3" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="2" Margin="10, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Dugość linki:" FontSize="50" Grid.Column="0"/>
+                    <Entry Text="80" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="3" Margin="10, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Posiadane:" FontSize="50" Grid.Column="0"/>
+                    <Switch Grid.Column="1"></Switch>
+                </Grid>
+                <Button Grid.Row="4" Text="Zapisz"  Margin="10, 20"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

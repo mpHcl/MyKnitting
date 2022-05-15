@@ -33,7 +33,8 @@ namespace MyKnitting.Services {
             return null;
         }
         public Task<bool> DeleteItemAsync(string id) {
-            return null;
+            yarns.Remove(yarns.Where(x => x.Id.ToString() == id).First());
+            return Task.FromResult(true);
         }
         public async Task<Yarn> GetItemAsync(string id) {
             var intId = int.Parse(id);

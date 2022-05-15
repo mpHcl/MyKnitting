@@ -6,14 +6,16 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Linq;
 using MyKnitting.Services;
+using System.IO;
 
 namespace MyKnitting.ViewModels {
     [QueryProperty(nameof(ProjectId), nameof(ProjectId))]
-    public class ProjectDetailsViewModel :BaseViewModel {
+    public class ProjectDetailsViewModel : BaseViewModel {
         private Project project;
         private string projectId;
         private string projectName;
         private string width;
+        private string height;
         private string pattern;
         private IEnumerable<Needle> needles;
         private IEnumerable<Yarn> yarns;
@@ -39,6 +41,7 @@ namespace MyKnitting.ViewModels {
             get => width;
             set => SetProperty(ref width, value);
         }
+
 
         public string ProjectPhoto {
             get => project.Photo;
@@ -77,18 +80,85 @@ namespace MyKnitting.ViewModels {
 
                 var yarnsTemp = new List<Yarn>();
                 foreach (var id in yarnsID) {
-                    yarnsTemp.Add(YarnsDataStore.GetItemAsync(id.Yarn.Id.ToString()).Result);
+                    var yarn = YarnsDataStore.GetItemAsync(id.Yarn.Id.ToString()).Result;
+                    if (yarn != null)
+                        yarnsTemp.Add(yarn);
                 }
 
                 var needlesTemp = new List<Needle>();
                 foreach (var id in needlesId) {
-                    needlesTemp.Add(NeedlesDataStore.GetItemAsync(id.Needle.Id.ToString()).Result);
+                    var needle = NeedlesDataStore.GetItemAsync(id.Needle.Id.ToString()).Result;
+                    if (needle != null)
+                        needlesTemp.Add(needle);
                 }
 
                 Yarns = yarnsTemp;
                 Needles = needlesTemp;                  
 
             } catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
+        public ProjectDetailsViewModel() {
+            EditNeedles = new Command(editNeedles);
+            EditYarns = new Command(editYarns);
+            ChangePattern = new Command(changePattern);
+            ChangePhoto = new Command(changePhoto);
+            SeePattern = new Command(seePattern);
+        }
+
+        public Command EditNeedles { get; }
+        public Command EditYarns { get; }
+        public Command ChangePattern { get; }
+        public Command ChangePhoto { get; }
+
+        public Command SeePattern { get; }
+
+        private async void seePattern() {
+            Console.WriteLine("HELLLO");
+            var openFileRequest = new OpenFileRequest();
+            openFileRequest.File = new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
+            await Launcher.OpenAsync(openFileRequest);
+            await ProjectsDataStore.UpdateItemAsync(project);
+            
+        }
+        private async void editNeedles() {
+            await Shell.Current.DisplayActionSheet("Wybierz opcje: ", "Anuluj", null, "Dodaj druty do projektu", "Usuń druty z projektu");
+        }
+
+        private async void editYarns() {
+            await Shell.Current.DisplayActionSheet("Wybierz opcje: ", "Anuluj", null, "Dodaj włókczki do projektu", "Usuń włóczki z projektu");
+        }
+
+        private async void changePhoto() {
+            var answear = await Shell.Current.DisplayActionSheet("Wybierz opcje: ", "Anuluj", null, "Zmień zdjęcie");
+
+            if (answear == "Zmień zdjęcie") {
+                try {
+                    var result = await FilePicker.PickAsync(PickOptions.Images);
+                    var new_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), result.FileName);
+                    File.Copy(result.FullPath, new_path, true);
+                    Console.WriteLine(result.FullPath);
+                    project.Photo = new_path;
+                    ProjectPhoto = project.Photo;
+                } catch (Exception ex) {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        private async void changePattern() {
+            try {
+                var result = await FilePicker.PickAsync();
+                Console.WriteLine(result.FullPath);
+                var new_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), result.FileName);
+                File.Copy(result.FullPath, new_path, true);
+                project.Pattern = result.FileName;
+                Pattern = project.Pattern;
+            }
+            catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }
         }

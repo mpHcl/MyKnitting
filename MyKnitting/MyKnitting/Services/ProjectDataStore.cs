@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,10 @@ using MyKnitting.Models;
 
 namespace MyKnitting.Services {
     public class ProjectDataStore : IDataStore<Project> {
-        readonly List<Project> projects;
+        readonly ObservableCollection<Project> projects;
 
         public ProjectDataStore() {
-            projects = new List<Project>() {
+            projects = new ObservableCollection<Project>() {
                 new Project {Id =0, Done = false, Name = "Mój pierwszy projekt.", Pattern="hello.pdf", Photo="Images/asdvas.jpg"},
                 new Project {Id = 1, Done = false, Name = "Nice", Pattern="hello.pdf", Photo="Images/asdasdvas.jpg"},
                 new Project {Id = 2, Done = false, Name ="Coś już tu się dzieje", Pattern = "ten_sam.pdf", Photo = "Images/Hmmm.png"},
@@ -34,7 +35,12 @@ namespace MyKnitting.Services {
             return Task.FromResult(true);
         }
         public Task<bool> UpdateItemAsync(Project item) {
-            return null;
+            var itemToUpdate = projects.Where(x => x.Id == item.Id).First();
+            itemToUpdate.Name = item.Name;
+            itemToUpdate.Pattern = item.Pattern;
+            itemToUpdate.Photo = item.Photo;
+            
+            return Task.FromResult(true);
         }
         public Task<bool> DeleteItemAsync(string id) {
             return null; 

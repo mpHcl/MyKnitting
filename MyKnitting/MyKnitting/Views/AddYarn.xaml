@@ -1,12 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyKnitting.Views.AddYarn">
+             x:Class="MyKnitting.Views.AddYarn"
+             Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="180"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Nazwa:" FontSize="30" Grid.Column="0" VerticalOptions="Center"/>
+                    <Entry Text="Nazwa" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="1" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Materiał:" FontSize="30" Grid.Column="0"/>
+                    <Entry Text="bawełna" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="2" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Grubość:" FontSize="30" Grid.Column="0"/>
+                    <Entry Text="3" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="3" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Ilość:" FontSize="30" Grid.Column="0"/>
+                    <Entry Text="5" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="4" Margin="70, 20, 50, 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="KOLOR" Grid.Column="0" FontSize="30"  VerticalOptions="Center"></Label>
+                            <Entry Text="NAZWA" Grid.Column="1"  VerticalOptions="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Czerwony" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center"/>
+                            <Label Text="Zielony" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
+                            <Label Text="Niebieski" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center"/>
+                            <Slider Grid.Column="0" Grid.Row="1" Minimum="0" Maximum="255" MaximumTrackColor="Purple" MinimumTrackColor="Magenta" Value="{Binding Red}"></Slider>
+                            <Slider Grid.Column="1" Grid.Row="1" Minimum="0" Maximum="255" MaximumTrackColor="Purple" MinimumTrackColor="Magenta" Value="{Binding Green}" ></Slider>
+                            <Slider Grid.Column="2" Grid.Row="1" Minimum="0" Maximum="255" MaximumTrackColor="Purple" MinimumTrackColor="Magenta" Value="{Binding Blue}"></Slider>
+                        </Grid>
+                    </Grid>
+                    <Frame BackgroundColor="{Binding ColorSource}" Grid.Column="1" >
+                        <Label Text="{Binding ColorCode}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black"/>
+                    </Frame>
+            </Grid>
+            <Button Grid.Row="6" Text="Zapisz"  Margin="50, 20"/>
+
+            <Grid Grid.Row="5" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Posiadane:" FontSize="30" Grid.Column="0"/>
+                    <Switch Grid.Column="1"></Switch>
+                </Grid>
+                <Button Grid.Row="6" Text="Zapisz"  Margin="50, 20" Command="{Binding testowanie}"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
