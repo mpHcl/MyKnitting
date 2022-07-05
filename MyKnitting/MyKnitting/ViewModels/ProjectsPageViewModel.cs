@@ -2,12 +2,8 @@
 using MyKnitting.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 
 namespace MyKnitting.ViewModels {
@@ -19,6 +15,7 @@ namespace MyKnitting.ViewModels {
         public ProjectsPageViewModel() {
             Title = "Projekty";
             projects = ProjectsDataStore.GetItemsAsync().Result;
+            Console.WriteLine("Tutaj chyba już nie działa...");
             ViewProjectDetails = new Command<Project>(OnProjectClicked);
             AddProject = new Command(OnAddClick);
         }
