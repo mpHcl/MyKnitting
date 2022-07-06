@@ -87,8 +87,8 @@ namespace MyKnitting.Services {
                 var command = db.CreateCommand();
                 command.CommandText =
                     @"
-                    INSERT INTO nfp
-                    VALUES ($id, $projectid, $needleid);
+                    INSERT INTO nfp (projectid, needleid)
+                    VALUES ($projectid, $needleid);
                 ";
 
                 command.Parameters.AddWithValue("$id", item.Id);

@@ -21,7 +21,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Text="Nazwa:" FontSize="30" Grid.Column="0" VerticalOptions="Center"/>
-                    <Entry Text="Nazwa" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                    <Entry Text="{Binding Name}" Grid.Column="1" HorizontalTextAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="1" Margin="70, 20">
                     <Grid.ColumnDefinitions>
@@ -29,7 +29,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Text="Materiał:" FontSize="30" Grid.Column="0"/>
-                    <Entry Text="bawełna" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                    <Entry Text="{Binding Material}" Grid.Column="1" HorizontalTextAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="2" Margin="70, 20">
                     <Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
                         <ColumnDefinition Width="60"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Text="Grubość:" FontSize="30" Grid.Column="0"/>
-                    <Entry Text="3" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                    <Entry Text="{Binding Size}" Grid.Column="1" HorizontalTextAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="3" Margin="70, 20">
                     <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
                         <ColumnDefinition Width="60"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Text="Ilość:" FontSize="30" Grid.Column="0"/>
-                    <Entry Text="5" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                    <Entry Text="{Binding Amount}" Grid.Column="1" HorizontalTextAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="4" Margin="70, 20, 50, 20">
                 <Grid.ColumnDefinitions>
@@ -96,7 +96,7 @@
                     <Label Text="Posiadane:" FontSize="30" Grid.Column="0"/>
                     <Switch Grid.Column="1"></Switch>
                 </Grid>
-                <Button Grid.Row="6" Text="Zapisz"  Margin="50, 20" Command="{Binding testowanie}"/>
+                <Button Grid.Row="6" Text="Zapisz"  Margin="50, 20" Command="{Binding SaveYarn}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

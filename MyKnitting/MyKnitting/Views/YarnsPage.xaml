@@ -13,57 +13,59 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView ItemsSource="{Binding Yarns}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">
+            <StackLayout>
+                <CollectionView ItemsSource="{Binding Yarns}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
 
-                        <SwipeView>
-                            <SwipeView.LeftItems>
-                                <SwipeItems>
-                                    <SwipeItem Text="Edytuj" BackgroundColor="Purple"/>
-                                    <SwipeItem Text="Usuń" 
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Edytuj" BackgroundColor="Purple"/>
+                                        <SwipeItem Text="Usuń" 
                                                BackgroundColor="MistyRose"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:YarnsPageViewModel}}, Path=DeleteYarn}" 
                                                CommandParameter ="{Binding .}"
                                                />
-                                </SwipeItems>
-                            </SwipeView.LeftItems>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="160"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Frame BackgroundColor="{Binding ColorCode}" VerticalOptions="Fill" HorizontalOptions="Fill" Grid.Column="0" Grid.Row="0" >
-                                    <Label Text="{Binding ColorCode}" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"></Label>
-                                </Frame>
-                                <Grid Grid.Column="1">
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
+                                        <RowDefinition Height="160"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="100"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
+                                    <Frame BackgroundColor="{Binding ColorCode}" VerticalOptions="Fill" HorizontalOptions="Fill" Grid.Column="0" Grid.Row="0" >
+                                        <Label Text="{Binding ColorCode}" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black"></Label>
+                                    </Frame>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="0" FontSize="25" Grid.Row="1"></Label>
-                                    <Label Text="{Binding Amount}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" FontSize="25" Grid.Row="1"></Label>
-                                    <Label Text="{Binding Owned}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" FontSize="25" Grid.Row="1"></Label>
-                                    <Label Text="{Binding Size}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" FontSize="25" Grid.Row="0"></Label>
-                                    <Label Text="{Binding Material}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" FontSize="25"></Label>
-                                    <Label Text="{Binding Color}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="0" FontSize="25"></Label>
+                                        <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="0" FontSize="25" Grid.Row="1"></Label>
+                                        <Label Text="{Binding Amount}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" FontSize="25" Grid.Row="1"></Label>
+                                        <Label Text="{Binding Owned}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" FontSize="25" Grid.Row="1"></Label>
+                                        <Label Text="{Binding Size}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="2" FontSize="25" Grid.Row="0"></Label>
+                                        <Label Text="{Binding Material}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="1" FontSize="25"></Label>
+                                        <Label Text="{Binding Color}" VerticalOptions="Center" HorizontalOptions="Start" Grid.Column="0" FontSize="25"></Label>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
 
-            </CollectionView>
-        </StackLayout>
+                </CollectionView>
+            </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

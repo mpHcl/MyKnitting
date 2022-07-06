@@ -13,7 +13,7 @@ namespace MyKnitting.Models {
         public int Size { get; set; }
         public string Material { get; set; }
         public int Amount { get; set; }
-        public bool Owned { get; set; }
+        public string Owned { get; set; }
 
     }
 }

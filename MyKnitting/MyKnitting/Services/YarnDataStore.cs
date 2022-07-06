@@ -58,11 +58,13 @@ namespace MyKnitting.Services {
         //solution.
         //Similarities can be found in other DataStore files. 
 
+        //readonly ObservableCollection<Yarn> yarns;
         readonly string _tableName;
 
         public YarnDataStore() {
             var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             _tableName = "Data source=" + Path.Combine(basePath, "database.db");
+            //yarns = new ObservableCollection<Yarn>();
         }
 
         public async Task<bool> AddItemAsync(Yarn item) {
@@ -72,11 +74,10 @@ namespace MyKnitting.Services {
                 var command = db.CreateCommand();
                 command.CommandText =
                     @"
-                        INSERT INTO yarns
-                        VALUES ( $name, $color, $colorcode, $size, $material, $amount, $owned);
+                        INSERT INTO yarns (name, color, colorcode, size, material, amount, owned)
+                        VALUES ($name, $color, $colorcode, $size, $material, $amount, $owned);
                     ";
 
-                command.Parameters.AddWithValue("$id", item.Id);
                 command.Parameters.AddWithValue("$name", item.Name);
                 command.Parameters.AddWithValue("$color", item.Color);
                 command.Parameters.AddWithValue("$colorcode", item.ColorCode);
@@ -160,7 +161,7 @@ namespace MyKnitting.Services {
                         int _size = reader.GetInt32(4);
                         string _material = reader.GetString(5);
                         int _amount = reader.GetInt32(6);
-                        bool _owned = reader.GetBoolean(7);
+                        string _owned = reader.GetString(7);
                         
 
                         return await Task.FromResult(new Yarn {
@@ -203,7 +204,7 @@ namespace MyKnitting.Services {
                         int _size = reader.GetInt32(4);
                         string _material = reader.GetString(5);
                         int _amount = reader.GetInt32(6);
-                        bool _owned = reader.GetBoolean(7);
+                        string _owned = reader.GetString(7);
 
                         result.Add(new Yarn {
                             Id = _id,

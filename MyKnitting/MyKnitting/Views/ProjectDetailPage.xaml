@@ -12,7 +12,8 @@
     </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Zapisz"></ToolbarItem>
+        <ToolbarItem Text="Zapisz" Command="{Binding DeleteProject}">
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ScrollView>
         <StackLayout>

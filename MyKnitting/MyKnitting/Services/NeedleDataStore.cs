@@ -107,8 +107,8 @@ namespace MyKnitting.Services {
                 var command = db.CreateCommand();
                 command.CommandText =
                     @"
-                        INSERT INTO needles
-                        VALUES ($id, $type, $size, $length, $owned);
+                        INSERT INTO needles (type, size, length, owned)
+                        VALUES ($type, $size, $length, $owned);
                     ";
 
                 command.Parameters.AddWithValue("$id", item.Id);

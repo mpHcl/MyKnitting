@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using Xamarin.Forms;
+using MyKnitting.Models;
+using MyKnitting.Services;
+using MyKnitting.Views;
 
 namespace MyKnitting.ViewModels {
     public class AddYarnViewModel : BaseViewModel {
@@ -42,6 +45,7 @@ namespace MyKnitting.ViewModels {
             r = 1;
             g = 1;
             b = 1;
+            SaveYarn = new Command(saveYarn);
         }
 
         private string GetHex() {
@@ -68,5 +72,39 @@ namespace MyKnitting.ViewModels {
             ColorSource = GetHex();
             ColorCode = GetHex();
         }   
+
+        public Command SaveYarn { get; }
+
+        private int amount = 1;
+        public int Amount {
+            get => amount;
+            set => SetProperty(ref amount, value);
+        }
+
+        private string material = "bawełna";
+        public string Material {
+            get => material;
+            set => SetProperty(ref material, value);
+        }
+        
+        private string name = "name";
+        public string Name {
+            get => name;
+            set => SetProperty(ref name, value);
+        }
+
+        private int size;
+        public int Size {
+            get => size;
+            set => SetProperty(ref size, value);
+        }
+        private async void saveYarn() {
+            Console.WriteLine("Dotarło tutaj");
+            Yarn yarn = new Yarn() { 
+                Color = GetHex(), ColorCode = GetHex(), Amount = amount, Material = material, Name = name, Owned = "true", Size = size, Id = 0 
+            };
+            await new YarnDataStore().AddItemAsync(yarn);
+            Shell.Current.SendBackButtonPressed();
+        }
     }
 }

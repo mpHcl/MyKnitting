@@ -7,6 +7,7 @@ using Xamarin.Essentials;
 using System.Linq;
 using MyKnitting.Services;
 using System.IO;
+using MyKnitting.Views;
 
 namespace MyKnitting.ViewModels {
     [QueryProperty(nameof(ProjectId), nameof(ProjectId))]
@@ -107,6 +108,7 @@ namespace MyKnitting.ViewModels {
             ChangePattern = new Command(changePattern);
             ChangePhoto = new Command(changePhoto);
             SeePattern = new Command(seePattern);
+            DeleteProject = new Command(deleteProject);
         }
 
         public Command EditNeedles { get; }
@@ -116,10 +118,15 @@ namespace MyKnitting.ViewModels {
 
         public Command SeePattern { get; }
 
+        public Command DeleteProject { get; }
+
         private async void seePattern() {
             Console.WriteLine("HELLLO");
             var openFileRequest = new OpenFileRequest();
+            Console.WriteLine(project.Pattern);
+            Console.WriteLine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
             openFileRequest.File = new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
+            Console.WriteLine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
             await Launcher.OpenAsync(openFileRequest);
             await ProjectsDataStore.UpdateItemAsync(project);
             
@@ -161,6 +168,11 @@ namespace MyKnitting.ViewModels {
             catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private async void deleteProject() {
+            await new ProjectDataStore().DeleteItemAsync(project.Id.ToString());
+            await Shell.Current.GoToAsync($"{nameof(ProjectsPage)}");
         }
     }
 }

@@ -38,7 +38,7 @@ namespace MyKnitting {
                     @"create table needles
                       (
                        id     integer not null
-                        constraint needles_pk
+                        constraint " + "\"needles_pk\"" + @"
                         primary key autoincrement,
                         type   text,
                         size   integer,
@@ -46,7 +46,7 @@ namespace MyKnitting {
                         owned  text
                     );
 
-                    create unique index needles_id_uindex
+                    create unique index "+ "\"needles_id_uindex\"" + @"
                         on needles(id); ";
 
                 command.ExecuteNonQuery();

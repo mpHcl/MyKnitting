@@ -10,7 +10,7 @@ namespace MyKnitting.Models {
         public string Name { get; set; }
         public string Photo { get; set; }
         public string Pattern { get; set; }
-        public bool Done { get; set; }
+        public string Done { get; set; }
 
     }
 }

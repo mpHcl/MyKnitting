@@ -67,23 +67,22 @@ namespace MyKnitting.Services {
         readonly string _tableName;
 
         public ProjectDataStore() {
-            Console.WriteLine("Utworzono PDS");
             var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             _tableName = "Data source=" + Path.Combine(basePath, "database.db");
-            Console.WriteLine("TEST2");
         }
 
         public async Task<bool> AddItemAsync(Project item) {
             using (var db = new SqliteConnection(_tableName)) {
                 db.Open();
-
+                Console.WriteLine("HELLLLLLLLLLO");
                 var command = db.CreateCommand();
+                Console.WriteLine("HELLLLLLLLLLO");
                 command.CommandText =
                     @"
-                        INSERT INTO projects
+                        INSERT INTO projects (name, photo, pattern, done)
                         VALUES ($name, $photo, $pattern, $done);
                     ";
-
+                Console.WriteLine("HELLLLLLLLLLO");
                 //command.Parameters.AddWithValue("$id", item.Id);
                 command.Parameters.AddWithValue("$name", item.Name);
                 command.Parameters.AddWithValue("$photo", item.Photo);
@@ -108,13 +107,17 @@ namespace MyKnitting.Services {
                         WHERE id = $id;
                     ";
 
+                Console.WriteLine(item.Id);
+
                 command.Parameters.AddWithValue("$id", item.Id);
                 command.Parameters.AddWithValue("$name", item.Name);
                 command.Parameters.AddWithValue("$photo", item.Photo);
                 command.Parameters.AddWithValue("$pattern", item.Pattern);
                 command.Parameters.AddWithValue("$done", item.Done);
 
+                Console.WriteLine("tutaj jest błąd");
                 await command.ExecuteNonQueryAsync();
+                Console.WriteLine("Tutaj dokładnie");
             }
 
             return await Task.FromResult(true);
@@ -123,7 +126,7 @@ namespace MyKnitting.Services {
         public async Task<bool> DeleteItemAsync(string id) {
             using (var db = new SqliteConnection(_tableName)) {
                 db.Open();
-
+                Console.WriteLine("Tutaj jest bład.....");
                 var command = db.CreateCommand();
                 command.CommandText =
                     @"
@@ -133,12 +136,14 @@ namespace MyKnitting.Services {
                 command.Parameters.AddWithValue("$id", id);
 
                 await command.ExecuteNonQueryAsync();
+                Console.WriteLine("Tutaj jest bład.....");
             }
 
             return await Task.FromResult(true);
         }
 
         public async Task<Project> GetItemAsync(string id) {
+            
             using (var db = new SqliteConnection(_tableName)) {
                 db.Open();
 
@@ -158,7 +163,7 @@ namespace MyKnitting.Services {
                         string _name = reader.GetString(1);
                         string _photo = reader.GetString(2);
                         string _pattern = reader.GetString(3);
-                        bool _done = reader.GetBoolean(4);
+                        string _done = reader.GetString(4);
 
                         return await Task.FromResult(new Project
                         {
@@ -179,6 +184,7 @@ namespace MyKnitting.Services {
 
         public async Task<IEnumerable<Project>> GetItemsAsync(bool forceRefresh = false) {
             var result = new ObservableCollection<Project>();
+            
             using (var db = new SqliteConnection(_tableName)) {
                 db.Open();
                 
@@ -189,15 +195,13 @@ namespace MyKnitting.Services {
                         FROM projects;
                     ";
 
-                using (var reader =  command.ExecuteReader()) {
-                    Console.WriteLine("HELLO THERE");
-                   
+                using (var reader =  command.ExecuteReader()) {                  
                     while (reader.Read()) {
                         int _id = reader.GetInt32(0);
                         string _name = reader.GetString(1);
                         string _photo = reader.GetString(2);
                         string _pattern = reader.GetString(3);
-                        bool _done = reader.GetBoolean(4);
+                        string _done = reader.GetString(4);
 
                         result.Add(new Project {
                             Id = _id,
