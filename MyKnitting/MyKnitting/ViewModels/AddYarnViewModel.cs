@@ -99,11 +99,10 @@ namespace MyKnitting.ViewModels {
             set => SetProperty(ref size, value);
         }
         private async void saveYarn() {
-            Console.WriteLine("Dotarło tutaj");
             Yarn yarn = new Yarn() { 
                 Color = GetHex(), ColorCode = GetHex(), Amount = amount, Material = material, Name = name, Owned = "true", Size = size, Id = 0 
             };
-            await new YarnDataStore().AddItemAsync(yarn);
+            await YarnsDataStore.AddItemAsync(yarn);
             Shell.Current.SendBackButtonPressed();
         }
     }

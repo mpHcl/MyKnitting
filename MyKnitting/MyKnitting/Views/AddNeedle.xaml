@@ -19,7 +19,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Text="Typ:" FontSize="50" Grid.Column="0"/>
-                    <Entry Text="Typ" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                    <Entry Text="{Binding Type}" Grid.Column="1" HorizontalTextAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="1" Margin="10, 20">
                     <Grid.ColumnDefinitions>
@@ -27,7 +27,7 @@
                         <ColumnDefinition Width="60"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Text="Rozmiar:" FontSize="50" Grid.Column="0"/>
-                    <Entry Text="3" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                    <Entry Text="{Binding Size}" Grid.Column="1" HorizontalTextAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="2" Margin="10, 20">
                     <Grid.ColumnDefinitions>
@@ -35,7 +35,7 @@
                         <ColumnDefinition Width="60"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Text="Dugość linki:" FontSize="50" Grid.Column="0"/>
-                    <Entry Text="80" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                    <Entry Text="{Binding Length}" Grid.Column="1" HorizontalTextAlignment="Center"/>
                 </Grid>
                 <Grid Grid.Row="3" Margin="10, 20">
                     <Grid.ColumnDefinitions>
@@ -45,7 +45,7 @@
                     <Label Text="Posiadane:" FontSize="50" Grid.Column="0"/>
                     <Switch Grid.Column="1"></Switch>
                 </Grid>
-                <Button Grid.Row="4" Text="Zapisz"  Margin="10, 20"/>
+                <Button Grid.Row="4" Text="Zapisz"  Margin="10, 20" Command="{Binding SaveNeedles}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

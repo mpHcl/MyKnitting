@@ -5,7 +5,6 @@ using SQLite;
 
 namespace MyKnitting.Models {
     public class Project {
-        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }

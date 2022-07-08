@@ -36,8 +36,6 @@ namespace MyKnitting.ViewModels {
         private async void OnDeleteItemClick(Yarn yarn) {
             var answear = await Shell.Current.DisplayAlert("Uwaga", "Na pewno chcesz usunąć tę włóczkę?", "Tak", "Nie");
             if (answear == true) {
-                Console.WriteLine("HELLLO");
-                Console.WriteLine(yarn.Id);
                 await YarnsDataStore.DeleteItemAsync(yarn.Id.ToString());
             }
             Refresh.Execute(this);

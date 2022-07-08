@@ -92,13 +92,15 @@ namespace MyKnitting.Services {
                         INSERT INTO yfp (projectid, yarnid)
                         VALUES ($projectid, $yarnid);
                     ";
-
-                command.Parameters.AddWithValue("$id", item.Id);
+                
+                Console.WriteLine(item.Project.Id);
+                Console.WriteLine(item.Yarn.Id);
                 command.Parameters.AddWithValue("$projectid", item.Project.Id);
                 command.Parameters.AddWithValue("$yarnid", item.Yarn.Id);
 
 
                 await command.ExecuteNonQueryAsync();
+                Console.WriteLine("ZAPISANO");
             }
 
             return await Task.FromResult(true);
@@ -190,7 +192,7 @@ namespace MyKnitting.Services {
                 command.CommandText =
                     @"
                         SELECT *
-                        FROM nfp;
+                        FROM yfp;
                     ";
 
                 using (var reader = await command.ExecuteReaderAsync()) {
@@ -198,7 +200,6 @@ namespace MyKnitting.Services {
                         int _id = reader.GetInt32(0);
                         string _projectid = reader.GetString(1);
                         string _yarnid = reader.GetString(2);
-
 
                         result.Add(new YarnsForProject
                         {

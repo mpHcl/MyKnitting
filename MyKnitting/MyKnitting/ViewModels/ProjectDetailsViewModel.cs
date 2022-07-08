@@ -8,6 +8,7 @@ using System.Linq;
 using MyKnitting.Services;
 using System.IO;
 using MyKnitting.Views;
+using System.Collections.ObjectModel;
 
 namespace MyKnitting.ViewModels {
     [QueryProperty(nameof(ProjectId), nameof(ProjectId))]
@@ -16,7 +17,6 @@ namespace MyKnitting.ViewModels {
         private string projectId;
         private string projectName;
         private string width;
-        private string height;
         private string pattern;
         private IEnumerable<Needle> needles;
         private IEnumerable<Yarn> yarns;
@@ -31,7 +31,7 @@ namespace MyKnitting.ViewModels {
             }
         }
         public string ProjectName {
-            get { Console.WriteLine("TESSTTT");
+            get {
                 return project.Name;
             }
 
@@ -79,14 +79,16 @@ namespace MyKnitting.ViewModels {
                 IEnumerable<NeedlesForProjects> needlesId = NFPDataStore.GetItemsAsync().Result.
                     Where(x => x.Project.Id == int.Parse(projectId));
 
-                var yarnsTemp = new List<Yarn>();
+                Console.WriteLine(YFPDataStore.GetItemsAsync().Result.Count());
+
+                var yarnsTemp = new ObservableCollection<Yarn>();
                 foreach (var id in yarnsID) {
                     var yarn = YarnsDataStore.GetItemAsync(id.Yarn.Id.ToString()).Result;
                     if (yarn != null)
                         yarnsTemp.Add(yarn);
                 }
 
-                var needlesTemp = new List<Needle>();
+                var needlesTemp = new ObservableCollection<Needle>();
                 foreach (var id in needlesId) {
                     var needle = NeedlesDataStore.GetItemAsync(id.Needle.Id.ToString()).Result;
                     if (needle != null)
@@ -103,12 +105,13 @@ namespace MyKnitting.ViewModels {
 
 
         public ProjectDetailsViewModel() {
-            EditNeedles = new Command(editNeedles);
-            EditYarns = new Command(editYarns);
-            ChangePattern = new Command(changePattern);
-            ChangePhoto = new Command(changePhoto);
-            SeePattern = new Command(seePattern);
-            DeleteProject = new Command(deleteProject);
+            EditNeedles = new Command(EditNeedlesFunc);
+            EditYarns = new Command(EditYarnsFunc);
+            ChangePattern = new Command(ChangePatternFunc);
+            ChangePhoto = new Command(ChangePhotoFunc);
+            SeePattern = new Command(SeePatternFunc);
+            DeleteProject = new Command(DeleteProjectFunc);
+            SaveProject = new Command(SaveProjectFunc);
         }
 
         public Command EditNeedles { get; }
@@ -119,27 +122,24 @@ namespace MyKnitting.ViewModels {
         public Command SeePattern { get; }
 
         public Command DeleteProject { get; }
+        public Command SaveProject { get; }
 
-        private async void seePattern() {
-            Console.WriteLine("HELLLO");
+        private async void SeePatternFunc() {
             var openFileRequest = new OpenFileRequest();
-            Console.WriteLine(project.Pattern);
-            Console.WriteLine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
             openFileRequest.File = new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
-            Console.WriteLine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
             await Launcher.OpenAsync(openFileRequest);
             await ProjectsDataStore.UpdateItemAsync(project);
             
         }
-        private async void editNeedles() {
-            await Shell.Current.DisplayActionSheet("Wybierz opcje: ", "Anuluj", null, "Dodaj druty do projektu", "Usuń druty z projektu");
+        private async void EditNeedlesFunc() {
+            await Shell.Current.GoToAsync($"{nameof(AddNeedlesForProject)}?{nameof(ProjectDetailsViewModel.ProjectId)}={project.Id}");
         }
 
-        private async void editYarns() {
-            await Shell.Current.DisplayActionSheet("Wybierz opcje: ", "Anuluj", null, "Dodaj włókczki do projektu", "Usuń włóczki z projektu");
+        private async void EditYarnsFunc() {
+            await Shell.Current.GoToAsync($"{nameof(AddYarnsForProject)}?{nameof(ProjectDetailsViewModel.ProjectId)}={project.Id}");
         }
 
-        private async void changePhoto() {
+        private async void ChangePhotoFunc() {
             var answear = await Shell.Current.DisplayActionSheet("Wybierz opcje: ", "Anuluj", null, "Zmień zdjęcie");
 
             if (answear == "Zmień zdjęcie") {
@@ -147,7 +147,6 @@ namespace MyKnitting.ViewModels {
                     var result = await FilePicker.PickAsync(PickOptions.Images);
                     var new_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), result.FileName);
                     File.Copy(result.FullPath, new_path, true);
-                    Console.WriteLine(result.FullPath);
                     project.Photo = new_path;
                     ProjectPhoto = project.Photo;
                 } catch (Exception ex) {
@@ -156,10 +155,9 @@ namespace MyKnitting.ViewModels {
             }
         }
 
-        private async void changePattern() {
+        private async void ChangePatternFunc() {
             try {
                 var result = await FilePicker.PickAsync();
-                Console.WriteLine(result.FullPath);
                 var new_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), result.FileName);
                 File.Copy(result.FullPath, new_path, true);
                 project.Pattern = result.FileName;
@@ -170,9 +168,14 @@ namespace MyKnitting.ViewModels {
             }
         }
 
-        private async void deleteProject() {
-            await new ProjectDataStore().DeleteItemAsync(project.Id.ToString());
-            await Shell.Current.GoToAsync($"{nameof(ProjectsPage)}");
+        private async void DeleteProjectFunc() {
+            await ProjectsDataStore.DeleteItemAsync(project.Id.ToString());
+            Shell.Current.SendBackButtonPressed();
+        }
+
+        private async void SaveProjectFunc() {
+            await ProjectsDataStore.UpdateItemAsync(project);
+            Shell.Current.SendBackButtonPressed();
         }
     }
 }

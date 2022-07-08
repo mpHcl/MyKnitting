@@ -11,59 +11,6 @@ using Microsoft.Data.Sqlite;
 
 namespace MyKnitting.Services {
     public class ProjectDataStore : IDataStore<Project> {
-        /*
-        readonly ObservableCollection<Project> projects;
-
-        public ProjectDataStore() {
-            projects = new ObservableCollection<Project>() {
-                new Project {Id =0, Done = false, Name = "Mój pierwszy projekt.", Pattern="hello.pdf", Photo="Images/asdvas.jpg"},
-                new Project {Id = 1, Done = false, Name = "Nice", Pattern="hello.pdf", Photo="Images/asdasdvas.jpg"},
-                new Project {Id = 2, Done = false, Name ="Coś już tu się dzieje", Pattern = "ten_sam.pdf", Photo = "Images/Hmmm.png"},
-                new Project {Id = 3, Done = false, Name = "Mój pierwszy projekt.", Pattern="hello.pdf", Photo="Images/asdvas.jpg"},
-                new Project {Id = 4, Done = false, Name = "Nice", Pattern="hello.pdf", Photo="Images/asdasdvas.jpg"},
-                new Project {Id = 5, Done = false, Name ="Coś już tu się dzieje", Pattern = "ten_sam.pdf", Photo = "Images/Hmmm.png"},
-                new Project {Id = 6, Done = false, Name = "Mój pierwszy projekt.", Pattern="hello.pdf", Photo="Images/asdvas.jpg"},
-                new Project {Id = 7, Done = false, Name = "Nice", Pattern="hello.pdf", Photo="Images/asdasdvas.jpg"},
-                new Project {Id = 8, Done = false, Name ="Coś już tu się dzieje", Pattern = "ten_sam.pdf", Photo = "Images/Hmmm.png"},
-                new Project {Id = 9, Done = false, Name = "Mój pierwszy projekt.", Pattern="hello.pdf", Photo="Images/asdvas.jpg"},
-                new Project {Id = 10, Done = false, Name = "Nice", Pattern="hello.pdf", Photo="Images/asdasdvas.jpg"},
-                new Project {Id = 11, Done = false, Name ="Coś już tu się dzieje", Pattern = "ten_sam.pdf", Photo = "Images/Hmmm.png"},
-                new Project {Id = 12, Done = false, Name = "Mój pierwszy projekt.", Pattern="hello.pdf", Photo="Images/asdvas.jpg"},
-
-            };
-        }
-
-        public Task<bool> AddItemAsync(Project item) {
-            projects.Add(item);
-            return Task.FromResult(true);
-        }
-        public Task<bool> UpdateItemAsync(Project item) {
-            var itemToUpdate = projects.Where(x => x.Id == item.Id).First();
-            itemToUpdate.Name = item.Name;
-            itemToUpdate.Pattern = item.Pattern;
-            itemToUpdate.Photo = item.Photo;
-            
-            return Task.FromResult(true);
-        }
-        public Task<bool> DeleteItemAsync(string id) {
-            return null; 
-        }
-        public async Task<Project> GetItemAsync(string id) {
-            var intId = int.Parse(id);
-            return await Task.FromResult(projects.FirstOrDefault(item => item.Id == intId));
-        }
-        public async Task<IEnumerable<Project>> GetItemsAsync(bool forceRefresh = false) {
-            return await Task.FromResult(projects);
-        }*/
-
-        //To implement...
-        //Only thing to do is configure app database in other place, probably somewhere in app.xml.cs 
-        //and uncommnet this section.
-        //There might be problems with id so make sure to take care of this, probably all you need to do 
-        //is make a primary key in model, and give cotnrol of it to the database, and this will be the simpliest 
-        //solution.
-        //Similarities can be found in other DataStore files. 
-        
         readonly string _tableName;
 
         public ProjectDataStore() {
@@ -74,15 +21,12 @@ namespace MyKnitting.Services {
         public async Task<bool> AddItemAsync(Project item) {
             using (var db = new SqliteConnection(_tableName)) {
                 db.Open();
-                Console.WriteLine("HELLLLLLLLLLO");
                 var command = db.CreateCommand();
-                Console.WriteLine("HELLLLLLLLLLO");
                 command.CommandText =
                     @"
                         INSERT INTO projects (name, photo, pattern, done)
                         VALUES ($name, $photo, $pattern, $done);
                     ";
-                Console.WriteLine("HELLLLLLLLLLO");
                 //command.Parameters.AddWithValue("$id", item.Id);
                 command.Parameters.AddWithValue("$name", item.Name);
                 command.Parameters.AddWithValue("$photo", item.Photo);
@@ -115,9 +59,7 @@ namespace MyKnitting.Services {
                 command.Parameters.AddWithValue("$pattern", item.Pattern);
                 command.Parameters.AddWithValue("$done", item.Done);
 
-                Console.WriteLine("tutaj jest błąd");
                 await command.ExecuteNonQueryAsync();
-                Console.WriteLine("Tutaj dokładnie");
             }
 
             return await Task.FromResult(true);
@@ -126,8 +68,17 @@ namespace MyKnitting.Services {
         public async Task<bool> DeleteItemAsync(string id) {
             using (var db = new SqliteConnection(_tableName)) {
                 db.Open();
-                Console.WriteLine("Tutaj jest bład.....");
                 var command = db.CreateCommand();
+                command.CommandText = "DELETE FROM yfp WHERE projectid = $id;";
+                command.Parameters.AddWithValue("$id", id);
+                command.ExecuteNonQuery();
+
+                command = db.CreateCommand();
+                command.CommandText = "DELETE FROM nfp WHERE projectid = $id;";
+                command.Parameters.AddWithValue("$id", id);
+                command.ExecuteNonQuery();
+
+                command = db.CreateCommand();
                 command.CommandText =
                     @"
                         DELETE FROM projects WHERE id = $id;
@@ -136,7 +87,6 @@ namespace MyKnitting.Services {
                 command.Parameters.AddWithValue("$id", id);
 
                 await command.ExecuteNonQueryAsync();
-                Console.WriteLine("Tutaj jest bład.....");
             }
 
             return await Task.FromResult(true);

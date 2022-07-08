@@ -23,9 +23,6 @@ namespace MyKnitting {
             var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var databasePath = Path.Combine(basePath, "database.db");
 
-            Console.WriteLine(databasePath);
-
-            //var db = new SqliteConnection("Data source="+databasePath);
 
             if (!File.Exists(databasePath)) {
 
@@ -56,7 +53,7 @@ namespace MyKnitting {
                     @"create table projects 
                     (
                         id      integer not null
-                                constraint projects _pk
+                                constraint " + "\"projects _pk\"" + @"
                                 primary key autoincrement,
                         name    text,
                         photo   text,
@@ -64,8 +61,8 @@ namespace MyKnitting {
                         done    text
                     );
 
-                    create unique index projects _id_uindex
-                        on projects (id); ";
+                    create unique index " + "\"projects _id_uindex\"" +
+                        "on projects (id); ";
 
                 command.ExecuteNonQuery();
                 
@@ -123,17 +120,10 @@ namespace MyKnitting {
                     on nfp(id);";
                 command.ExecuteNonQuery();
                 db.Close();
-                Console.WriteLine("Utworzono bazę danych.");
             }
-            else {
-                Console.WriteLine("BAZA DANYCH ISTNIEJE!!!!!!!! I MA SIĘ DOBRZE CHYBA");
-            }
-
                
 
             MainPage = new AppShell();
-
-
         }
 
         protected override void OnStart() {

@@ -4,7 +4,39 @@
              x:Class="MyKnitting.Views.AddProject">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Nazwa"></Label>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Nazwa:" FontSize="30" Grid.Column="0" VerticalOptions="Center"/>
+                    <Entry Text="{Binding Name}" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="1" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Zdjęcie:" FontSize="30" Grid.Column="0"/>
+                    <Button Text="Wybierz" Grid.Column="1" Command="{Binding AddPhoto}"/>
+                </Grid>
+                <Grid Grid.Row="2" Margin="70, 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Wzór:" FontSize="30" Grid.Column="0"/>
+                    <Button Text="Wybierz" Grid.Column="1" Command="{Binding AddPattern}"/>
+                </Grid>
+                <Button Text="Zapisz" Command="{Binding SaveProject}" Grid.Row="3"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

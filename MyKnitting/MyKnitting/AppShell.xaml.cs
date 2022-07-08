@@ -14,6 +14,8 @@ namespace MyKnitting {
             Routing.RegisterRoute(nameof(AddYarn), typeof(AddYarn));
             Routing.RegisterRoute(nameof(ProjectsPage), typeof(ProjectsPage));
             Routing.RegisterRoute(nameof(YarnsPage), typeof(YarnsPage));
+            Routing.RegisterRoute(nameof(AddNeedlesForProject), typeof(AddNeedlesForProject));
+            Routing.RegisterRoute(nameof(AddYarnsForProject), typeof(AddYarnsForProject));
         }
     }
 }

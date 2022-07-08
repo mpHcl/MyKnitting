@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyKnitting.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace MyKnitting.Views {
     public partial class AddNeedle : ContentPage {
         public AddNeedle() {
             InitializeComponent();
+            BindingContext = new AddNeedlesViewModel();
         }
     }
 }

@@ -21,26 +21,27 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <FlexLayout>
-        <CollectionView x:Name="ProjectListView"
+    <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding Refresh}">
+        <FlexLayout>
+            <CollectionView x:Name="ProjectListView"
                 ItemsSource="{Binding Projects}"
                 ItemsLayout="VerticalGrid, 2"
                 >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="350"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                        </Grid.ColumnDefinitions>
-                        <ImageButton Source="{Binding Photo}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProjectsPageViewModel}}, Path=ViewProjectDetails}" CommandParameter="{Binding .}"/>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="350"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Source="{Binding Photo}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProjectsPageViewModel}}, Path=ViewProjectDetails}" CommandParameter="{Binding .}"/>
 
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </FlexLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </FlexLayout>
+    </RefreshView>
 </ContentPage>

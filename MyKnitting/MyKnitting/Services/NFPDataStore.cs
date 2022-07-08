@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 
 namespace MyKnitting.Services {
-    public class NFPDataStore : IDataStore<NeedlesForProjects> {
+    public class NFPDataStore : IDataStore<NeedlesForProjects> { 
         /*readonly ObservableCollection<NeedlesForProjects> collection;
-
         public NFPDataStore() {
             var projects = new List<Project>(new ProjectDataStore().GetItemsAsync().Result);
             var needles = new List<Needle>(new NeedleDataStore().GetItemsAsync().Result);
@@ -31,25 +30,20 @@ namespace MyKnitting.Services {
                     new NeedlesForProjects {Id = 12, Project= projects[3], Needle=needles[3] },
                     new NeedlesForProjects {Id = 13, Project= projects[3], Needle=needles[4] },
                     new NeedlesForProjects {Id = 14, Project= projects[3], Needle=needles[7] }
-
             };
         }
-
         public async Task<bool> AddItemAsync(NeedlesForProjects yfp) {
             collection.Add(yfp);
             return await Task.FromResult(true);
         }
-
         public async Task<bool> UpdateItemAsync(NeedlesForProjects yfp) {
             return await Task.FromResult(false);
         }
-
         public async Task<bool> DeleteItemAsync(string id) {
             try {
                 var intId = int.Parse(id);
                 collection.Remove(collection.Where(x => x.Id == intId).FirstOrDefault());
                 return await Task.FromResult(true);
-
             } catch (Exception) {
                 return await Task.FromResult(false);
             }
@@ -57,7 +51,6 @@ namespace MyKnitting.Services {
         public Task<NeedlesForProjects> GetItemAsync(string id) {
             return null;
         }
-
         public async Task<IEnumerable<NeedlesForProjects>> GetItemsAsync(bool forceRefresh = false) {
             //Console.WriteLine("Hello");
             return await Task.FromResult(collection);
@@ -72,7 +65,6 @@ namespace MyKnitting.Services {
         //is make a primary key in model, and give cotnrol of it to the database, and this will be the simpliest 
         //solution.
         //Similarities can be found in other DataStore files. 
-
         readonly string _tableName;
 
         public NFPDataStore() {

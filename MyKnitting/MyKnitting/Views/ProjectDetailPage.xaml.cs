@@ -12,7 +12,6 @@ namespace MyKnitting.Views {
     public partial class ProjectDetailsPage : ContentPage {
         public ProjectDetailsPage() {
             InitializeComponent();
-            Console.WriteLine("test");
             BindingContext = new ViewModels.ProjectDetailsViewModel(); 
             
         }

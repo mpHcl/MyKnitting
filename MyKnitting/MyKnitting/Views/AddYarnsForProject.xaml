@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyKnitting.Views.AddYarnsForProject">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Anuluj" Command="{Binding Cancel}"/>
+        <ToolbarItem Text="Zapisz" Command="{Binding Save}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label HeightRequest="10"/>
+            <Label Text=" Dostępne włóczki:" FontSize="30" Grid.Row="0"></Label>
+            <Label HeightRequest="10"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="90"></ColumnDefinition>
+                    <ColumnDefinition Width="90"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Label Text="  Nazwa" Grid.Column="0"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Rozmiar" Grid.Column="1"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Ilość" Grid.Column="2"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Materiał" Grid.Column="3"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Kolor" Grid.Column="4"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Podgląd" Grid.Column="5"    VerticalOptions="Center"/>
+
+            </Grid>
+            <CollectionView ItemsSource="{Binding UsableYarns}" HeightRequest="300" Grid.Row="2" SelectionMode="Single" SelectionChanged="SelectedAdd">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"></ColumnDefinition>
+                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Name}" Grid.Column="0" FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Size}" Grid.Column="1"  FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Amount}" Grid.Column="2"  FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Material}" Grid.Column="3"  FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Color}" Grid.Column="4"  FontSize="15" VerticalOptions="Center"/>
+                            <BoxView BackgroundColor="{Binding ColorCode}" Grid.Column="5" VerticalOptions="CenterAndExpand" HeightRequest="40"  />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label HeightRequest="30"/>
+            <Label Text=" Włóczki dodane do projektu:" FontSize="30" Grid.Row="0"></Label>
+            <Label HeightRequest="10"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="90"></ColumnDefinition>
+                    <ColumnDefinition Width="90"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Label Text="  Nazwa" Grid.Column="0"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Rozmiar" Grid.Column="1"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Ilość" Grid.Column="2"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Materiał" Grid.Column="3"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Kolor" Grid.Column="4"  FontSize="15" VerticalOptions="Center"/>
+                <Label Text="Podgląd" Grid.Column="5"    VerticalOptions="Center"/>
+
+            </Grid>
+            <CollectionView ItemsSource="{Binding Yarns}" HeightRequest="300" Grid.Row="2" SelectionMode="Single" SelectionChanged="SelectedRemove">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"></ColumnDefinition>
+                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Name}" Grid.Column="0" FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Size}" Grid.Column="1"  FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Amount}" Grid.Column="2"  FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Material}" Grid.Column="3"  FontSize="15" VerticalOptions="Center"/>
+                            <Label Text="{Binding Color}" Grid.Column="4"  FontSize="15" VerticalOptions="Center"/>
+                            <BoxView BackgroundColor="{Binding ColorCode}" Grid.Column="5" VerticalOptions="CenterAndExpand" HeightRequest="40"  />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
