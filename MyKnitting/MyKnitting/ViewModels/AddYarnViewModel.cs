@@ -45,7 +45,7 @@ namespace MyKnitting.ViewModels {
             r = 1;
             g = 1;
             b = 1;
-            SaveYarn = new Command(saveYarn);
+            SaveYarn = new Command(SaveYarnFunc);
         }
 
         private string GetHex() {
@@ -98,7 +98,7 @@ namespace MyKnitting.ViewModels {
             get => size;
             set => SetProperty(ref size, value);
         }
-        private async void saveYarn() {
+        private async void SaveYarnFunc() {
             Yarn yarn = new Yarn() { 
                 Color = GetHex(), ColorCode = GetHex(), Amount = amount, Material = material, Name = name, Owned = "true", Size = size, Id = 0 
             };

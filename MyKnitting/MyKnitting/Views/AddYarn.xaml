@@ -4,7 +4,7 @@
              x:Class="MyKnitting.Views.AddYarn"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
@@ -98,6 +98,6 @@
                 </Grid>
                 <Button Grid.Row="6" Text="Zapisz"  Margin="50, 20" Command="{Binding SaveYarn}"/>
             </Grid>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

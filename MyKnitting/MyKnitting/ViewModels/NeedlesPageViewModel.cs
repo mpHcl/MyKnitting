@@ -18,7 +18,7 @@ namespace MyKnitting.ViewModels {
             needles = NeedlesDataStore.GetItemsAsync().Result;
             DeleteNeedle = new Command<Needle>(OnDeleteItemClick);
             AddNeedle = new Command(OnAddClick);
-            Refresh = new Command(refresh);
+            Refresh = new Command(RefreshFunc);
 
             Shell.Current.Navigated += (sender, e) =>
             {
@@ -50,7 +50,7 @@ namespace MyKnitting.ViewModels {
                 OnPropertyChanged();
             }
         }
-        public async void refresh() {
+        public async void RefreshFunc() {
             IsRefreshing = true;
             var needlesstemp = await NeedlesDataStore.GetItemsAsync();
 

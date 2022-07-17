@@ -20,11 +20,21 @@ namespace MyKnitting.ViewModels {
 
         public Command AddPhoto { get; }
         string projectPhoto = "";
+
+        Tools.IImageResize resizer => DependencyService.Get<Tools.IImageResize>();
         private async void AddPhotoFunc() {
             try {
                 var result = await FilePicker.PickAsync(PickOptions.Images);
                 var new_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), result.FileName);
-                File.Copy(result.FullPath, new_path, true);
+                ////File.Copy(result.FullPath, new_path, true);
+                ////File.WriteAllBytes(new_path, Droid.Resize(File.ReadAllBytes(result.FullPath), 800, 600).Result);
+                //SkiaSharp.SKBitmap originalImage = SkiaSharp.SKBitmap.Decode(File.ReadAllBytes(new_path));
+                //var resizedImage = originalImage.Resize(new SkiaSharp.SKImageInfo(800, 600), SkiaSharp.SKFilterQuality.Medium);
+
+
+                File.WriteAllBytes(new_path, resizer.Resize(File.ReadAllBytes(result.FullPath), 1600, 900));
+
+
                 projectPhoto = new_path;
             }
             catch (Exception ex) {

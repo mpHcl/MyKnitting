@@ -27,14 +27,14 @@ namespace MyKnitting.ViewModels {
         }
 
         public Command SaveNeedles { get; }
-        private async void saveNeedles() {
+        private async void SaveNeedlesFunc() {
             Needle needle = new Needle() { Id = 0, Length = length, Size = size, Type = type, Owned = "true"};
             await NeedlesDataStore.AddItemAsync(needle);
             Shell.Current.SendBackButtonPressed();
         }
 
         public AddNeedlesViewModel() {
-            SaveNeedles = new Command(saveNeedles);
+            SaveNeedles = new Command(SaveNeedlesFunc);
         }
 
     }

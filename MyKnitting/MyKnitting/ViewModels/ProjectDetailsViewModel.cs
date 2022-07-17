@@ -10,6 +10,10 @@ using System.IO;
 using MyKnitting.Views;
 using System.Collections.ObjectModel;
 
+#if __ANDROID__
+using Android.Graphics;
+#endif
+
 namespace MyKnitting.ViewModels {
     [QueryProperty(nameof(ProjectId), nameof(ProjectId))]
     public class ProjectDetailsViewModel : BaseViewModel {
@@ -79,7 +83,6 @@ namespace MyKnitting.ViewModels {
                 IEnumerable<NeedlesForProjects> needlesId = NFPDataStore.GetItemsAsync().Result.
                     Where(x => x.Project.Id == int.Parse(projectId));
 
-                Console.WriteLine(YFPDataStore.GetItemsAsync().Result.Count());
 
                 var yarnsTemp = new ObservableCollection<Yarn>();
                 foreach (var id in yarnsID) {
@@ -125,8 +128,8 @@ namespace MyKnitting.ViewModels {
         public Command SaveProject { get; }
 
         private async void SeePatternFunc() {
-            var openFileRequest = new OpenFileRequest();
-            openFileRequest.File = new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
+            var openFileRequest = new OpenFileRequest(project.Pattern, new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))));
+            //openFileRequest.File = new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
             await Launcher.OpenAsync(openFileRequest);
             await ProjectsDataStore.UpdateItemAsync(project);
             

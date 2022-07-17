@@ -18,6 +18,7 @@ namespace MyKnitting {
             DependencyService.Register<YarnDataStore>();
             DependencyService.Register<NFPDataStore>();
             DependencyService.Register<YFPDataStore>();
+            
 
             
             var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

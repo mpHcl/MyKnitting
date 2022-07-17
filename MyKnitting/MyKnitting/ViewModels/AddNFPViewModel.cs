@@ -13,7 +13,6 @@ namespace MyKnitting.ViewModels {
 
         private IEnumerable<Needle> needles;
         private IEnumerable<Needle> allNeedles;
-        //private IEnumerable<Needle> usableYarns;
         public IEnumerable<Needle> Needles {
             get => needles;
             set => SetProperty(ref needles, value);
@@ -44,22 +43,6 @@ namespace MyKnitting.ViewModels {
             try {
                 project = await ProjectsDataStore.GetItemAsync(projectId);
 
-                /*
-                //AllYarns = await YarnsDataStore.GetItemsAsync();
-
-                IEnumerable<YarnsForProject> yarnsID = YFPDataStore.GetItemsAsync().Result.
-                    Where(x => x.Project.Id == int.Parse(projectId));
-
-                var yarnsTemp = new ObservableCollection<Yarn>();
-                foreach (var id in yarnsID) {
-                    var yarn = YarnsDataStore.GetItemAsync(id.Yarn.Id.ToString()).Result;
-                    if (yarn != null)
-                        yarnsTemp.Add(yarn);
-                }
-
-                Yarns = yarnsTemp;
-                */
-
                 var allYarns = await NeedlesDataStore.GetItemsAsync();
                 IEnumerable<NeedlesForProjects> yarnsIDTemp = NFPDataStore.GetItemsAsync().Result.
                     Where(x => x.Project.Id == int.Parse(projectId));
@@ -73,8 +56,6 @@ namespace MyKnitting.ViewModels {
                     }
                 }
 
-                Console.WriteLine("!!!!!!!!!!!!!!");
-                Console.WriteLine(yarnsID.Count());
                 var yarnsTempUsed = new ObservableCollection<Needle>();
                 var yarnsTempUsable = new ObservableCollection<Needle>();
 
@@ -114,7 +95,6 @@ namespace MyKnitting.ViewModels {
             }
 
             foreach (var item in needles) {
-                Console.WriteLine(item.Type);
                 await NFPDataStore.AddItemAsync(new NeedlesForProjects() { Project = project, Needle = item });
             }
 

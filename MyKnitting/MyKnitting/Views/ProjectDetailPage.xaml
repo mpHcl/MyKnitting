@@ -18,7 +18,7 @@
     </ContentPage.ToolbarItems>
     <ScrollView>
         <StackLayout>
-            <ImageButton Source="{Binding ProjectPhoto}" Command="{Binding ChangePhoto}"  Margin="0" x:DataType="viewmodels:ProjectDetailsViewModel"></ImageButton>
+            <ImageButton Source="{Binding ProjectPhoto}" HeightRequest="700" Command="{Binding ChangePhoto}"  Margin="0" x:DataType="viewmodels:ProjectDetailsViewModel" Aspect="AspectFill"></ImageButton>
             <Grid Margin="20,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>

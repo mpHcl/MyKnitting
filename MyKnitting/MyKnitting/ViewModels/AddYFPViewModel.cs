@@ -14,7 +14,7 @@ namespace MyKnitting.ViewModels {
 
         private IEnumerable<Yarn> yarns; 
         private IEnumerable<Yarn> allYarns;
-        private IEnumerable<Yarn> usableYarns;
+        //private IEnumerable<Yarn> usableYarns;
         public IEnumerable<Yarn> Yarns {
             get => yarns;
             set => SetProperty(ref yarns, value);
@@ -45,22 +45,6 @@ namespace MyKnitting.ViewModels {
             try {
                 project = await ProjectsDataStore.GetItemAsync(projectId);
 
-                /*
-                //AllYarns = await YarnsDataStore.GetItemsAsync();
-
-                IEnumerable<YarnsForProject> yarnsID = YFPDataStore.GetItemsAsync().Result.
-                    Where(x => x.Project.Id == int.Parse(projectId));
-
-                var yarnsTemp = new ObservableCollection<Yarn>();
-                foreach (var id in yarnsID) {
-                    var yarn = YarnsDataStore.GetItemAsync(id.Yarn.Id.ToString()).Result;
-                    if (yarn != null)
-                        yarnsTemp.Add(yarn);
-                }
-
-                Yarns = yarnsTemp;
-                */
-
                 var allYarns = await YarnsDataStore.GetItemsAsync();
                 IEnumerable<YarnsForProject> yarnsIDTemp = YFPDataStore.GetItemsAsync().Result.
                     Where(x => x.Project.Id == int.Parse(projectId));
@@ -74,8 +58,6 @@ namespace MyKnitting.ViewModels {
                     }
                 }
 
-                Console.WriteLine("!!!!!!!!!!!!!!");
-                Console.WriteLine(yarnsID.Count());
                 var yarnsTempUsed = new ObservableCollection<Yarn>(); 
                 var yarnsTempUsable = new ObservableCollection<Yarn>();
 
@@ -101,13 +83,8 @@ namespace MyKnitting.ViewModels {
 
         public Command Save { get; }
         public Command Cancel { get; }
-        private async void CancelFunc() {
-            var temp = await  YFPDataStore.GetItemsAsync();
-            foreach (var item in temp) {
-                Console.WriteLine(item.Id);
-            }
+        private void CancelFunc() {
             Shell.Current.SendBackButtonPressed();
-
         }
 
         private async void SaveFunc() {
@@ -119,7 +96,6 @@ namespace MyKnitting.ViewModels {
             }
             
             foreach (var item in yarns) {
-                Console.WriteLine(item.Name);
                 await YFPDataStore.AddItemAsync(new YarnsForProject() { Project = project, Yarn = item });
             }
 

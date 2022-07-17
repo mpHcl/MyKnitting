@@ -31,12 +31,14 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="350"/>
+                                <RowDefinition Height="400"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="300"/>
                             </Grid.ColumnDefinitions>
-                            <ImageButton Source="{Binding Photo}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProjectsPageViewModel}}, Path=ViewProjectDetails}" CommandParameter="{Binding .}"/>
+                            <StackLayout>
+                                <ImageButton Source="{Binding Photo}" HeightRequest="400" Padding=" 0, 0, 0, 0" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProjectsPageViewModel}}, Path=ViewProjectDetails}" CommandParameter="{Binding .}" Aspect="AspectFill"/>
+                            </StackLayout>
 
                         </Grid>
                     </DataTemplate>

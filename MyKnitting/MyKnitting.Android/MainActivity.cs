@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Xamarin.Forms;
 
 namespace MyKnitting.Droid
 {
@@ -12,6 +13,8 @@ namespace MyKnitting.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+
+            DependencyService.Register<ImgResize>();
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
