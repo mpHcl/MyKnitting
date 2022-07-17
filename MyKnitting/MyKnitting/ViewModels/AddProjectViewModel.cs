@@ -32,7 +32,7 @@ namespace MyKnitting.ViewModels {
                 //var resizedImage = originalImage.Resize(new SkiaSharp.SKImageInfo(800, 600), SkiaSharp.SKFilterQuality.Medium);
 
 
-                File.WriteAllBytes(new_path, resizer.Resize(File.ReadAllBytes(result.FullPath), 1600, 900));
+                File.WriteAllBytes(new_path, resizer.Resize(File.ReadAllBytes(result.FullPath), 1600, 900, result.FullPath));
 
 
                 projectPhoto = new_path;

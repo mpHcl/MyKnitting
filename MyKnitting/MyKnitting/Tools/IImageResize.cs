@@ -4,6 +4,6 @@ using System.Text;
 
 namespace MyKnitting.Tools {
     public interface IImageResize {
-         byte[] Resize(byte[] imageData, float width, float height);
+         byte[] Resize(byte[] imageData, float width, float height, string path);
     }
 }

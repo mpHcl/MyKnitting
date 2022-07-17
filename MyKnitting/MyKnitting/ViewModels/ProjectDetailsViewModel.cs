@@ -148,7 +148,7 @@ namespace MyKnitting.ViewModels {
                     var result = await FilePicker.PickAsync(PickOptions.Images);
                     var new_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), result.FileName);
                     File.Copy(result.FullPath, new_path, true);
-                    File.WriteAllBytes(new_path, resizer.Resize(File.ReadAllBytes(result.FullPath), 1600, 900));
+                    File.WriteAllBytes(new_path, resizer.Resize(File.ReadAllBytes(result.FullPath), 1600, 900, result.FullPath));
 
 
                     //projectPhoto = new_path;
