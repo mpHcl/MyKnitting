@@ -10,9 +10,6 @@ using System.IO;
 using MyKnitting.Views;
 using System.Collections.ObjectModel;
 
-#if __ANDROID__
-using Android.Graphics;
-#endif
 
 namespace MyKnitting.ViewModels {
     [QueryProperty(nameof(ProjectId), nameof(ProjectId))]
@@ -141,6 +138,7 @@ namespace MyKnitting.ViewModels {
         private async void EditYarnsFunc() {
             await Shell.Current.GoToAsync($"{nameof(AddYarnsForProject)}?{nameof(ProjectDetailsViewModel.ProjectId)}={project.Id}");
         }
+        Tools.IImageResize resizer => DependencyService.Get<Tools.IImageResize>();
 
         private async void ChangePhotoFunc() {
             var answear = await Shell.Current.DisplayActionSheet("Wybierz opcje: ", "Anuluj", null, "Zmień zdjęcie");
@@ -150,6 +148,10 @@ namespace MyKnitting.ViewModels {
                     var result = await FilePicker.PickAsync(PickOptions.Images);
                     var new_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), result.FileName);
                     File.Copy(result.FullPath, new_path, true);
+                    File.WriteAllBytes(new_path, resizer.Resize(File.ReadAllBytes(result.FullPath), 1600, 900));
+
+
+                    //projectPhoto = new_path;
                     project.Photo = new_path;
                     ProjectPhoto = project.Photo;
                 } catch (Exception ex) {
