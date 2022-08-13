@@ -125,8 +125,10 @@ namespace MyKnitting.ViewModels {
         public Command SaveProject { get; }
 
         private async void SeePatternFunc() {
-            var openFileRequest = new OpenFileRequest(project.Pattern, new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData))));
-            //openFileRequest.File = new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), project.Pattern));
+            var openFileRequest = new OpenFileRequest(
+                project.Pattern, new ReadOnlyFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)))
+               );
+
             await Launcher.OpenAsync(openFileRequest);
             await ProjectsDataStore.UpdateItemAsync(project);
             
@@ -150,8 +152,6 @@ namespace MyKnitting.ViewModels {
                     File.Copy(result.FullPath, new_path, true);
                     File.WriteAllBytes(new_path, resizer.Resize(File.ReadAllBytes(result.FullPath), 1600, 900, result.FullPath));
 
-
-                    //projectPhoto = new_path;
                     project.Photo = new_path;
                     ProjectPhoto = project.Photo;
                 } catch (Exception ex) {
@@ -174,7 +174,10 @@ namespace MyKnitting.ViewModels {
         }
 
         private async void DeleteProjectFunc() {
-            await ProjectsDataStore.DeleteItemAsync(project.Id.ToString());
+            var answear = await Shell.Current.DisplayAlert("", "Czy na pewno chcesz usunąć projekt?", "Tak", "Nie");
+            if (answear == true) {
+                await ProjectsDataStore.DeleteItemAsync(project.Id.ToString());
+            }
             Shell.Current.SendBackButtonPressed();
         }
 
